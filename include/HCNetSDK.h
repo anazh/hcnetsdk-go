@@ -51407,7 +51407,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  BOOL  NET_DVR_StartListen(char *sLocalIP,WORD wLocalPort);
  BOOL  NET_DVR_StopListen();
 
- LONG  NET_DVR_StartListen_V30(char *sLocalIP, WORD wLocalPort, MSGCallBack DataCallback, void* pUserData = NULL);
+ LONG  NET_DVR_StartListen_V30(char *sLocalIP, WORD wLocalPort, MSGCallBack DataCallback, void* pUserData );
  BOOL  NET_DVR_StopListen_V30(LONG lListenHandle);
  LONG  NET_DVR_Login(char *sDVRIP,WORD wDVRPort,char *sUserName,char *sPassword,LPNET_DVR_DEVICEINFO lpDeviceInfo);
  LONG  NET_DVR_Login_V30(char *sDVRIP, WORD wDVRPort, char *sUserName, char *sPassword, LPNET_DVR_DEVICEINFO_V30 lpDeviceInfo);
@@ -51418,7 +51418,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  BOOL  NET_DVR_Logout_V30(LONG lUserID);
  DWORD  NET_DVR_GetLastError();
  void  NET_DVR_GetLastErrorModelCode(DWORD *pModelCode, DWORD *pMErrDevSelfEx);
- char*  NET_DVR_GetErrorMsg(LONG *pErrorNo = NULL);
+ char*  NET_DVR_GetErrorMsg(LONG *pErrorNo );
  BOOL  NET_DVR_SetShowMode(DWORD dwShowType,COLORREF colorKey);
  BOOL  NET_DVR_GetDVRIPByResolveSvr(char *sServerIP, WORD wServerPort, BYTE *sDVRName,WORD wDVRNameLen,BYTE *sDVRSerialNumber,WORD wDVRSerialLen,char* sGetIP);
  BOOL   NET_DVR_GetDVRIPByResolveSvr_EX(char *sServerIP, WORD wServerPort, BYTE *sDVRName, WORD wDVRNameLen, BYTE *sDVRSerialNumber, WORD wDVRSerialLen, char* sGetIP, DWORD *dwPort);
@@ -51426,9 +51426,9 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
 
 //预览相关接口
  LONG  NET_DVR_PlayDirect(char *sDVRIP, char *sUserName, char *sPassword, \
-                                              LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser) = NULL, void* pUser = NULL, BOOL bBlocked = FALSE);
+                                              LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser, BOOL bBlocked = FALSE);
  LONG  NET_DVR_RealPlay(LONG lUserID,LPNET_DVR_CLIENTINFO lpClientInfo);
- LONG  NET_DVR_RealPlay_V30(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser) = NULL, void* pUser = NULL, BOOL bBlocked = FALSE);
+ LONG  NET_DVR_RealPlay_V30(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser, BOOL bBlocked = FALSE);
  BOOL  NET_DVR_StopRealPlay(LONG lRealHandle);
  BOOL  NET_DVR_StopPlayDirect(LONG lRealHandle);
  BOOL  NET_DVR_RigisterDrawFun(LONG lRealHandle,void (CALLBACK* fDrawFun)(LONG lRealHandle,HDC hDc,DWORD dwUser),DWORD dwUser);
@@ -51763,7 +51763,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  BOOL  NET_DVR_SetConfigFile_EX(LONG lUserID, char *sInBuffer, DWORD dwInSize);
 
 //启用日志文件写入接口
- BOOL  NET_DVR_SetLogToFile(DWORD nLogLevel = 0, char * strLogDir = NULL, BOOL bAutoDel = TRUE);
+ BOOL  NET_DVR_SetLogToFile(DWORD nLogLevel = 0, char * strLogDir, BOOL bAutoDel = TRUE);
  BOOL  NET_DVR_GetSDKState(LPNET_DVR_SDKSTATE pSDKState);
  BOOL  NET_DVR_GetSDKAbility(LPNET_DVR_SDKABL pSDKAbl);
  BOOL  NET_DVR_GetPTZProtocol(LONG lUserID, NET_DVR_PTZCFG *pPtzcfg);
@@ -51869,11 +51869,11 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
 
 typedef void (CALLBACK *REALDATACALLBACK) (LONG lPlayHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser);
 
- LONG  NET_DVR_ZeroStartPlay(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, REALDATACALLBACK fRealDataCallBack_V30 = NULL, void* pUser = NULL, BOOL bBlocked = TRUE);
+ LONG  NET_DVR_ZeroStartPlay(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, REALDATACALLBACK fRealDataCallBack_V30, void* pUser, BOOL bBlocked = TRUE);
 
  BOOL  NET_DVR_ZeroStopPlay(LONG lPlayHandle);
  BOOL  NET_DVR_ZeroMakeKeyFrame(LONG lUserID, LONG lZeroChan);
- BOOL  NET_DVR_PlayBackControl_V40(LONG lPlayHandle,DWORD dwControlCode, LPVOID lpInBuffer = NULL, DWORD dwInLen = 0, LPVOID lpOutBuffer = NULL, DWORD *lpOutLen = NULL);
+ BOOL  NET_DVR_PlayBackControl_V40(LONG lPlayHandle,DWORD dwControlCode, LPVOID lpInBuffer, DWORD dwInLen = 0, LPVOID lpOutBuffer, DWORD *lpOutLen);
  BOOL  NET_DVR_ZeroTurnOver(LONG lUserID, LONG lChannel, BOOL bNextPreview);
  LONG  NET_DVR_RealPlay_Card_V30(LONG lUserID, NET_DVR_CARDINFO const *lpCardInfo, LONG lChannelNum, DWORD dwMode, BOOL bBlock, REALDATACALLBACK fRealDataCallBack_V30, void* pUser);
 
@@ -52301,8 +52301,8 @@ typedef void(CALLBACK *fGPSDataCallback)(LONG nHandle, DWORD dwState, void* lpBu
 
  BOOL  NET_DVR_ClosePreview(LONG lUserID, DWORD nSessionID);
  BOOL  NET_DVR_ClosePlayBack(LONG lUserID, DWORD nSessionID);
- LONG  NET_DVR_RealPlay_V40(LONG lUserID, LPNET_DVR_PREVIEWINFO lpPreviewInfo, REALDATACALLBACK fRealDataCallBack_V30 = NULL, void* pUser = NULL);
- LONG  NET_DVR_RealPlaySpecial(LONG lUserID, LPNET_DVR_PREVIEWINFO_SPECIAL lpPreviewInfo, REALDATACALLBACK fRealDataCallBack_V30 = NULL, void* pUser = NULL);
+ LONG  NET_DVR_RealPlay_V40(LONG lUserID, LPNET_DVR_PREVIEWINFO lpPreviewInfo, REALDATACALLBACK fRealDataCallBack_V30, void* pUser);
+ LONG  NET_DVR_RealPlaySpecial(LONG lUserID, LPNET_DVR_PREVIEWINFO_SPECIAL lpPreviewInfo, REALDATACALLBACK fRealDataCallBack_V30, void* pUser);
  BOOL  NET_DVR_GetLinkAddr(LONG lLinkHandle, NET_DVR_LINK_KIND enumLinkKind, LPNET_DVR_LINK_ADDR lpLinkAddr);
 
  LONG  NET_DVR_StartDownload(LONG lUserID, DWORD dwDownloadType, LPVOID lpInBuffer, DWORD dwInBufferSize, const char *sFileName);
@@ -52322,7 +52322,7 @@ typedef void(CALLBACK *fGPSDataCallback)(LONG nHandle, DWORD dwState, void* lpBu
 
  BOOL  NET_DVR_UploadLogo_NEW(LONG lUserID, DWORD dwLogoNo, LPNET_DVR_MATRIX_LOGO_INFO lpLogoInfo, char *sLogoBuffer);
  BOOL  NET_DVR_DownloadLogo(LONG lUserID, DWORD dwLogoNo, LPNET_DVR_MATRIX_LOGO_INFO lpLogoInfo, char *sLogoBuffer, DWORD dwLogoBufferSize);
- LONG  NET_DVR_StartPassiveTransCode(LONG lUserID, NET_DVR_STREAM_INFO const *pStreamInfo, NET_DVR_COMPRESSIONCFG_V30 const *pDstTransInfo, NET_DVR_PASSIVETRANSINFO const *pPassiveTransInfo, void(CALLBACK *fTransCodeDataCallBack) (LONG lPassiveHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser) = NULL, void* pUser = NULL);
+ LONG  NET_DVR_StartPassiveTransCode(LONG lUserID, NET_DVR_STREAM_INFO const *pStreamInfo, NET_DVR_COMPRESSIONCFG_V30 const *pDstTransInfo, NET_DVR_PASSIVETRANSINFO const *pPassiveTransInfo, void(CALLBACK *fTransCodeDataCallBack) (LONG lPassiveHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser);
  BOOL  NET_DVR_TransCodeInputData(LONG lPassiveHandle, BYTE *pBuffer, DWORD dwBufSize);
  BOOL  NET_DVR_StopPassiveTransCode(LONG lPassiveHandle);
  LONG  NET_DVR_GetPassiveTransChanNum(LONG lPassiveHandle);
