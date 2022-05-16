@@ -4,9 +4,10 @@
 #ifndef _WINDOWS_
     #if (defined(_WIN32) || defined(_WIN64))
         #include <winsock2.h>
-        #include <windows.h>    
+        #include <windows.h>
     #endif
 #endif
+
 
 #if defined(_WIN64)
     #define OS_WINDOWS64    1
@@ -51343,9 +51344,11 @@ typedef struct _NET_DVR_AUDIODEC_PROCESS_PARAM
 } NET_DVR_AUDIODEC_PROCESS_PARAM;
 
 const unsigned int G726_EBCIN_DECOUT_SIZE = 640; // G726库编码输入一帧及解码输出一帧的大小（定长）
+#if (defined __x86_64__)
 const unsigned int G726_ENC_OUT_SIZE = 160; // G726库输入一帧编码输出大小（定长）
 const unsigned int G726_DEC_IN_SIZE = 200; // G726库输入一帧到解码长度（定长）
-
+#endif // (defined __x86_64__)
+#endif // (defined __linux__)
 /********************************SDK接口函数声明*********************************/
  BOOL  NET_DVR_Init();
  BOOL  NET_DVR_Cleanup();
