@@ -51381,7 +51381,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  BOOL  NET_DVR_SetDVRMessageCallBack_V50(int iIndex, MSGCallBack fMessageCallBack, void* pUser);
  BOOL  NET_DVR_SetDVRMessageCallBack_V51(int iIndex, MSGCallBack fMsgCallBack, void* pUser);
 
- BOOL  NET_DVR_SetConnectTime(DWORD dwWaitTime , DWORD dwTryTimes = 3);
+ BOOL  NET_DVR_SetConnectTime(DWORD dwWaitTime , DWORD dwTryTimes);
  BOOL  NET_DVR_SetReconnect(DWORD dwInterval , BOOL bEnableRecon );
  DWORD  NET_DVR_GetSDKVersion();
  DWORD  NET_DVR_GetSDKBuildVersion();
