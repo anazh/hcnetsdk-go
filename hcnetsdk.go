@@ -312,10 +312,10 @@ func GetJPG(userId int) (string, error) {
 	picPath := time.Now().Format("20060102150405") + ".jpeg"
 	path := C.CString(picPath)
 	defer C.free(unsafe.Pointer(path))
-	content := C.NET_DVR_JPEGPARA{}
+	content := &C.NET_DVR_JPEGPARA{}
 	content.wPicSize = C.WORD(10)
 	content.wPicQuality = C.WORD(0)
-	ok := C.NET_DVR_CaptureJPEGPicture(C.LONG(userId), C.LONG(1), content, path)
+	ok := C.NET_DVR_CaptureJPEGPicture(C.LONG(userId), C.LONG(1), *content, path)
 	if ok == 1 {
 		return picPath, nil
 	}
