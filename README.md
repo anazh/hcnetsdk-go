@@ -2,7 +2,7 @@
 
 forked from  lkqm/hcnetsdk-go
 
-我只是试图加些接口，对CGO不熟悉
+**我只是试图加些接口，对CGO不熟悉**
 
 海康网络HCNetSDK二次封装的Go库.
 
