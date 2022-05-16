@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.golang": "go",
+        "*.bak": "cpp"
+    }
+}
