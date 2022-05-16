@@ -103,39 +103,39 @@ func DoAction(ip string, port int, username string, password string, action func
 	return action(userId)
 }
 
-// 设备布防
-func SetupAlarm(userId int, messageCallback MessageCallBack, exceptionCallback ExceptionCallBack, data unsafe.Pointer) (int, error) {
-	messageCallBackHooks[userId] = messageCallback
-	cUserId := C.LONG(userId)
-	cResult := C.NET_DVR_SetDVRMessageCallBack_V30(C.MSGCallBack(C.MSGCallBackCgo), data)
-	if cResult != 1 {
-		return -1, LastError()
-	}
-	cHandle := C.NET_DVR_SetupAlarmChan_V30(cUserId)
-	if cHandle == -1 {
-		return -1, LastError()
-	}
+// // 设备布防
+// func SetupAlarm(userId int, messageCallback MessageCallBack, exceptionCallback ExceptionCallBack, data unsafe.Pointer) (int, error) {
+// 	messageCallBackHooks[userId] = messageCallback
+// 	cUserId := C.LONG(userId)
+// 	cResult := C.NET_DVR_SetDVRMessageCallBack_V30(C.MSGCallBack(C.MSGCallBackCgo), data)
+// 	if cResult != 1 {
+// 		return -1, LastError()
+// 	}
+// 	cHandle := C.NET_DVR_SetupAlarmChan_V30(cUserId)
+// 	if cHandle == -1 {
+// 		return -1, LastError()
+// 	}
 
-	// 异常回调
-	exceptionCallBackHooks[userId] = exceptionCallback
-	if exceptionCallback != nil {
-		cExceptionResult := C.NET_DVR_SetExceptionCallBack_V30(C.UINT(0), nil, C.FExceptionCallBack(C.FExceptionCallBackCgo), nil)
-		if cExceptionResult == 0 {
-			C.NET_DVR_CloseAlarmChan_V30(cHandle)
-			return int(cHandle), LastError()
-		}
-	}
-	return int(cHandle), nil
-}
+// 	// 异常回调
+// 	exceptionCallBackHooks[userId] = exceptionCallback
+// 	if exceptionCallback != nil {
+// 		cExceptionResult := C.NET_DVR_SetExceptionCallBack_V30(C.UINT(0), nil, C.FExceptionCallBack(C.FExceptionCallBackCgo), nil)
+// 		if cExceptionResult == 0 {
+// 			C.NET_DVR_CloseAlarmChan_V30(cHandle)
+// 			return int(cHandle), LastError()
+// 		}
+// 	}
+// 	return int(cHandle), nil
+// }
 
 // 关闭报警布防
-func CloseAlarm(handle int) error {
-	cResult := C.NET_DVR_CloseAlarmChan_V30(C.LONG(handle))
-	if cResult != 1 {
-		return LastError()
-	}
-	return nil
-}
+// func CloseAlarm(handle int) error {
+// 	cResult := C.NET_DVR_CloseAlarmChan_V30(C.LONG(handle))
+// 	if cResult != 1 {
+// 		return LastError()
+// 	}
+// 	return nil
+// }
 
 // 视频实时播放
 func RealPlay(userId int, callback RealDataCallBack, data interface{}) (int, error) {
