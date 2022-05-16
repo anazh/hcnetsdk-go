@@ -57,7 +57,7 @@ func Login(ip string, port int, username string, password string) (int, error) {
 	defer C.free(unsafe.Pointer(cPassword))
 	var deviceInfo C.NET_DVR_DEVICEINFO_V30
 
-	cUserId := C.NET_DVR_Login_V30(cIp, C.WORD(port), cUsername, cPassword, deviceInfo)
+	cUserId := C.NET_DVR_Login_V30(cIp, C.WORD(port), cUsername, cPassword, &deviceInfo)
 	if cUserId < 0 {
 		return -1, LastError()
 	}
@@ -315,7 +315,7 @@ func GetJPG(userId int) (string, error) {
 	content := &C.NET_DVR_JPEGPARA{}
 	content.wPicSize = C.WORD(10)
 	content.wPicQuality = C.WORD(0)
-	ok := C.NET_DVR_CaptureJPEGPicture(C.LONG(userId), C.LONG(1), *content, path)
+	ok := C.NET_DVR_CaptureJPEGPicture(C.LONG(userId), C.LONG(1), content, path)
 	if ok == 1 {
 		return picPath, nil
 	}
