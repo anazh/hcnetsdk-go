@@ -51346,6 +51346,7 @@ typedef struct _NET_DVR_AUDIODEC_PROCESS_PARAM
 // const unsigned int G726_EBCIN_DECOUT_SIZE = 640; // G726库编码输入一帧及解码输出一帧的大小（定长）
 // const unsigned int G726_ENC_OUT_SIZE = 160; // G726库输入一帧编码输出大小（定长）
 // const unsigned int G726_DEC_IN_SIZE = 200; // G726库输入一帧到解码长度（定长）
+
 #endif // (defined __linux__)
 /********************************SDK接口函数声明*********************************/
  BOOL  NET_DVR_Init();
