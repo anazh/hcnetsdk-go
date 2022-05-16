@@ -51260,24 +51260,6 @@ typedef struct tagNET_ALARM_EXCEPTION
 }NET_ALARM_EXCEPTION, *LPNET_ALARM_EXCEPTION;
 
 
-enum ADDITIONAL_LIB 
-{
-    PLAYCTRL = 0,  
-    DSSDK,        
-    STREAMCONVERT,  
-    STREAMTRANS,   
-    QOSSDK,     
-    DLL_PATH_AUDIO,  
-    EZVIZ_SSL_SDK, 
-    ANALYZE_DATA_LIB,
-    DLL_LIBICONV,   
-    SSLEAY32_SDK, 
-    LIBEAY32_SDK,
-    HCNETUTILS_SDK, 
-    NPQ_LIB,  
-    LOAD_DLL_COUNT,  
-};
-
 typedef struct tagNET_DVR_AUTOTEST_CFG_HEAD
 {
     DWORD   dwSize;
@@ -51399,8 +51381,8 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  BOOL  NET_DVR_SetDVRMessageCallBack_V50(int iIndex, MSGCallBack fMessageCallBack, void* pUser);
  BOOL  NET_DVR_SetDVRMessageCallBack_V51(int iIndex, MSGCallBack fMsgCallBack, void* pUser);
 
- BOOL  NET_DVR_SetConnectTime(DWORD dwWaitTime = 3000, DWORD dwTryTimes = 3);
- BOOL  NET_DVR_SetReconnect(DWORD dwInterval = 30000, BOOL bEnableRecon = TRUE);
+ BOOL  NET_DVR_SetConnectTime(DWORD dwWaitTime , DWORD dwTryTimes = 3);
+ BOOL  NET_DVR_SetReconnect(DWORD dwInterval , BOOL bEnableRecon );
  DWORD  NET_DVR_GetSDKVersion();
  DWORD  NET_DVR_GetSDKBuildVersion();
  int  NET_DVR_IsSupport();
@@ -51426,9 +51408,9 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
 
 //预览相关接口
  LONG  NET_DVR_PlayDirect(char *sDVRIP, char *sUserName, char *sPassword, \
-                                              LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser, BOOL bBlocked = FALSE);
+                                              LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser, BOOL bBlocked );
  LONG  NET_DVR_RealPlay(LONG lUserID,LPNET_DVR_CLIENTINFO lpClientInfo);
- LONG  NET_DVR_RealPlay_V30(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser, BOOL bBlocked = FALSE);
+ LONG  NET_DVR_RealPlay_V30(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, void(CALLBACK *fRealDataCallBack_V30) (LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser), void* pUser, BOOL bBlocked);
  BOOL  NET_DVR_StopRealPlay(LONG lRealHandle);
  BOOL  NET_DVR_StopPlayDirect(LONG lRealHandle);
  BOOL  NET_DVR_RigisterDrawFun(LONG lRealHandle,void (CALLBACK* fDrawFun)(LONG lRealHandle,HDC hDc,DWORD dwUser),DWORD dwUser);
@@ -51623,7 +51605,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  LONG  NET_DVR_FindDVRLog(LONG lUserID, LONG lSelectMode, DWORD dwMajorType,DWORD dwMinorType, LPNET_DVR_TIME lpStartTime, LPNET_DVR_TIME lpStopTime);
  LONG  NET_DVR_FindNextLog(LONG lLogHandle, LPNET_DVR_LOG lpLogData);
  BOOL  NET_DVR_FindLogClose(LONG lLogHandle);
- LONG  NET_DVR_FindDVRLog_V30(LONG lUserID, LONG lSelectMode, DWORD dwMajorType,DWORD dwMinorType, LPNET_DVR_TIME lpStartTime, LPNET_DVR_TIME lpStopTime, BOOL bOnlySmart = FALSE);
+ LONG  NET_DVR_FindDVRLog_V30(LONG lUserID, LONG lSelectMode, DWORD dwMajorType,DWORD dwMinorType, LPNET_DVR_TIME lpStartTime, LPNET_DVR_TIME lpStopTime, BOOL bOnlySmart );
  LONG  NET_DVR_FindNextLog_V30(LONG lLogHandle, LPNET_DVR_LOG_V30 lpLogData);
  LONG  NET_DVR_FindDVRLog_V50(LONG lUserID, LPNET_DVR_FIND_LOG_COND pFindCond);
  LONG  NET_DVR_FindNextLog_V50(LONG lLogHandle, LPNET_DVR_LOG_V50 lpLogData);
@@ -51763,7 +51745,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
  BOOL  NET_DVR_SetConfigFile_EX(LONG lUserID, char *sInBuffer, DWORD dwInSize);
 
 //启用日志文件写入接口
- BOOL  NET_DVR_SetLogToFile(DWORD nLogLevel = 0, char * strLogDir, BOOL bAutoDel = TRUE);
+ BOOL  NET_DVR_SetLogToFile(DWORD nLogLevel , char * strLogDir, BOOL bAutoDel );
  BOOL  NET_DVR_GetSDKState(LPNET_DVR_SDKSTATE pSDKState);
  BOOL  NET_DVR_GetSDKAbility(LPNET_DVR_SDKABL pSDKAbl);
  BOOL  NET_DVR_GetPTZProtocol(LONG lUserID, NET_DVR_PTZCFG *pPtzcfg);
@@ -51869,7 +51851,7 @@ typedef BOOL (CALLBACK *MSGCallBack_V31)(LONG lCommand, NET_DVR_ALARMER *pAlarme
 
 typedef void (CALLBACK *REALDATACALLBACK) (LONG lPlayHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void* pUser);
 
- LONG  NET_DVR_ZeroStartPlay(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, REALDATACALLBACK fRealDataCallBack_V30, void* pUser, BOOL bBlocked = TRUE);
+ LONG  NET_DVR_ZeroStartPlay(LONG lUserID, LPNET_DVR_CLIENTINFO lpClientInfo, REALDATACALLBACK fRealDataCallBack_V30, void* pUser, BOOL bBlocked );
 
  BOOL  NET_DVR_ZeroStopPlay(LONG lPlayHandle);
  BOOL  NET_DVR_ZeroMakeKeyFrame(LONG lUserID, LONG lZeroChan);
@@ -52389,7 +52371,6 @@ typedef void(CALLBACK *fGPSDataCallback)(LONG nHandle, DWORD dwState, void* lpBu
  LONG  NET_DVR_CreateOpenEzvizUser(LPNET_DVR_OPEN_EZVIZ_USER_LOGIN_INFO pLoginInfo, LPNET_DVR_DEVICEINFO_V40 pDeviceInfo);
  BOOL  NET_DVR_DeleteOpenEzvizUser(LONG iUserID);
 
- BOOL  NET_DVR_LoadAdditionalLib(ADDITIONAL_LIB libType, char const *sDllName);
 
 #endif //
 
