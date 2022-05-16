@@ -51855,7 +51855,7 @@ typedef void (CALLBACK *REALDATACALLBACK) (LONG lPlayHandle, DWORD dwDataType, B
 
  BOOL  NET_DVR_ZeroStopPlay(LONG lPlayHandle);
  BOOL  NET_DVR_ZeroMakeKeyFrame(LONG lUserID, LONG lZeroChan);
- BOOL  NET_DVR_PlayBackControl_V40(LONG lPlayHandle,DWORD dwControlCode, LPVOID lpInBuffer, DWORD dwInLen = 0, LPVOID lpOutBuffer, DWORD *lpOutLen);
+ BOOL  NET_DVR_PlayBackControl_V40(LONG lPlayHandle,DWORD dwControlCode, LPVOID lpInBuffer, DWORD dwInLen , LPVOID lpOutBuffer, DWORD *lpOutLen);
  BOOL  NET_DVR_ZeroTurnOver(LONG lUserID, LONG lChannel, BOOL bNextPreview);
  LONG  NET_DVR_RealPlay_Card_V30(LONG lUserID, NET_DVR_CARDINFO const *lpCardInfo, LONG lChannelNum, DWORD dwMode, BOOL bBlock, REALDATACALLBACK fRealDataCallBack_V30, void* pUser);
 
@@ -52037,7 +52037,7 @@ typedef void (CALLBACK *FLOWTESTCALLBACK)(LONG lFlowHandle, LPNET_DVR_FLOW_INFO 
  BOOL  NET_DVR_GetLocalIPv6(BYTE strIP[16][16], DWORD *pValidNum, BOOL *pEnableBind);
  BOOL  NET_DVR_SetValidIPv6(DWORD dwIPIndex, BOOL bEnableBind);
  BOOL  NET_DVR_GetVcaDevWorkState(LONG lUserID, LPNET_DVR_VCA_DEV_WORKSTATUS lpWorkState);
- BOOL   NET_DVR_SetRecvTimeOut(DWORD nRecvTimeOut = 5000); //最小3000毫秒
+ BOOL   NET_DVR_SetRecvTimeOut(DWORD nRecvTimeOut ); //最小3000毫秒
  BOOL  NET_DVR_MatrixGetDisplayCfg_V40(LONG lUserID, DWORD dwDispChanNum, LPNET_DVR_VGA_DISP_CHAN_CFG_V40 lpDisplayCfg);              
  BOOL  NET_DVR_MatrixSetDisplayCfg_V40(LONG lUserID, DWORD dwDispChanNum, LPNET_DVR_VGA_DISP_CHAN_CFG_V40 lpDisplayCfg);
  BOOL  NET_DVR_ShutterCompensation(LONG lUserID);
