@@ -316,7 +316,7 @@ func GetJPG(userId int) (string, error) {
 	content.wPicSize = C.WORD(10)
 	content.wPicQuality = C.WORD(0)
 	ok := C.NET_DVR_CaptureJPEGPicture(C.LONG(userId), C.LONG(1), content, path)
-	if ok {
+	if ok == 1 {
 		return picPath, nil
 	}
 	return "", errors.New("no get")
