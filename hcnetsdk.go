@@ -27,6 +27,7 @@ void FRealDataCallBackCgo(LONG lPlayHandle, DWORD dwDataType, BYTE *pBuffer, DWO
 */
 import "C"
 import (
+	"errors"
 	"fmt"
 	"time"
 	"unsafe"
@@ -303,6 +304,22 @@ func ModifyPassword(userId int, username string, newPassword string) error {
 		}
 	}
 	return SetDvrConfig(userId, 0, 1007, unsafe.Pointer(&cDvrUsers))
+}
+
+// 抓拍接口
+// 返回图片内容
+func GetJPG(userId int) (string, error) {
+	picPath := time.Now().Format("20060102150405") + ".jpeg"
+	path := C.CString(picPath)
+	defer C.free(unsafe.Pointer(path))
+	content := &C.NET_DVR_JPEGPARA{}
+	content.wPicSize = C.WORD(10)
+	content.wPicQuality = C.WORD(0)
+	ok := C.NET_DVR_CaptureJPEGPicture(C.LONG(userId), C.LONG(1), content, path)
+	if ok {
+		return picPath, nil
+	}
+	return "", errors.New("no get")
 }
 
 //--------------------------------------------------------------------
